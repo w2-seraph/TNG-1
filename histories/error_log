@@ -1,0 +1,4 @@
+[06-Oct-2013 17:37:46] PHP Fatal error:  Call to undefined function  getpersonfullplusdates() in /home1/thevall9/public_html/histories/presidents.php on line 63
+[06-Oct-2013 17:39:22] PHP Fatal error:  Call to undefined function  getpersonfullplusdates() in /home1/thevall9/public_html/histories/presidents.php on line 63
+[06-Oct-2013 17:40:40] PHP Fatal error:  Cannot redeclare tng_header() (previously declared in /home1/thevall9/public_html/genlib.php:48) in /home1/thevall9/public_html/genlib.php on line 128
+[06-Oct-2013 17:40:51] PHP Fatal error:  Cannot redeclare tng_header() (previously declared in /home1/thevall9/public_html/genlib.php:48) in /home1/thevall9/public_html/genlib.php on line 128

@@ -1,0 +1,17 @@
+[26-Jul-2013 05:17:50] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:17:57] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:18:05] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:18:12] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:18:18] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:18:32] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:18:38] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:18:46] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:18:52] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:19:00] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:19:05] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:19:12] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2013 05:19:20] PHP Fatal error:  Call to undefined function  tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15
+[26-Jul-2014 18:06:37 America/Denver] PHP Notice:  Undefined variable: cms in /home1/thevall9/public_html/templates/template10/index.php on line 8
+[26-Jul-2014 18:06:37 America/Denver] PHP Notice:  Undefined variable: templatepath in /home1/thevall9/public_html/templates/template10/index.php on line 8
+[26-Jul-2014 18:06:37 America/Denver] PHP Notice:  Undefined variable: tmp in /home1/thevall9/public_html/templates/template10/index.php on line 8
+[26-Jul-2014 18:06:37 America/Denver] PHP Fatal error:  Call to undefined function tng_header() in /home1/thevall9/public_html/templates/template10/index.php on line 15

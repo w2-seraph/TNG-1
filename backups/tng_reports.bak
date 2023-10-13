@@ -1,0 +1,33 @@
+reportID,reportname,reportdesc,ranking,display,criteria,orderby,sqlselect,active
+"1","No Parents","","1","","","","select personID, lastname, firstname, birthdate from tng_people where famc=\'\' order by birthdate desc, lastname, firstname","0"
+"2","NULL Long Lat","","1","","","","select id,place from tng_places where longitude is null or latitude is null order by place","1"
+"3","Place Maintenance","","1","","","","SELECT id, pl.gedcom,
+concat(\'<a href=\"admin_editplace.php?ID=\',pl.id,\'&tree=\', pl.gedcom,\'\", target=_blank>\', pl.place, \'</a>\') as Places,
+ notes, concat(\'<a href=\"placesearch.php?psearch=\',replace(pl.place,\' \',\'+\'), \'\">\', evcount, \'</a>\') as eventcount
+FROM tng_places as pl
+join
+( select gedcom, place, count(*) as evcount from
+( SELECT gedcom, birthplace AS place
+FROM `tng_people`
+WHERE gedcom = \'fitzvalley\'
+UNION all SELECT gedcom, altbirthplace
+FROM `tng_people`
+WHERE gedcom = \'fitzvalley\'
+UNION all SELECT gedcom, marrplace
+FROM `tng_families`
+WHERE gedcom = \'fitzvalley\'
+UNION all SELECT gedcom, deathplace
+FROM `tng_people`
+WHERE gedcom = \'fitzvalley\'
+UNION all SELECT gedcom, burialplace
+FROM `tng_people`
+WHERE gedcom = \'fitzvalley\'
+UNION all SELECT gedcom, eventplace
+FROM tng_events
+WHERE gedcom = \'fitzvalley\'
+
+) as p group by gedcom, place
+
+) as plc using ( gedcom, place )
+where (isnull(longitude) or isnull(latitude) or longitude=\'\' or latitude = \'\')
+order by evcount desc, gedcom, pl.place","0"

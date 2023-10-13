@@ -1,0 +1,194 @@
+<!-- The Next Generation of Genealogy Sitebuilding, v.11.1, Written by Darrin Lythgoe, 2001-2017 -->
+<html>
+<head>
+	<link href="genstyle.css" rel="stylesheet">
+	<link href="css/genstyle.css" rel="stylesheet">
+
+	<script type="text/javascript">
+		function toggleSection(sectionName) {
+			var section = document.getElementById(sectionName + 'div');
+			var link = document.getElementById(sectionName + 'link');
+			
+			if(section.style.display == "none") {
+				section.style.display = "";
+				link.innerHTML = "Hide instructions";
+			}
+			else {
+				section.style.display = "none";
+				link.innerHTML = "Show instructions";
+			}
+			return false;
+		}
+	</script>
+</head>
+<body style="font-size:12pt;">
+
+<h1>TNG 11.1 Upgrade</h1>
+<p>(From v.9.x )</p>
+
+<h2>Installation Instructions</h2>
+
+<ol>
+	<li>
+		<p><b>Get the upgrade files.</b> OK, you've probably already done this, but let's review anyway. The file you downloaded should be called <strong>tngupdate9x-111.zip</strong>.
+		Extract or "unzip" the files included in tngupdate9x-111.zip to a
+		temporary location on your hard drive. Some files should extract into subfolders called 'css', 'font', 'img', 'js', 'languages' and 'templates' (among others).</p>
+	</li>
+
+	<li>
+		<p><b>Back up settings and custom files, other preparation.</b> &nbsp; | &nbsp; <a href="#" id="backuplink" onclick="return toggleSection('backup');">Show instructions</a></p>
+		<div id="backupdiv" style="display:none">
+			<p>If you haven't done so lately, please make a backup of the following important files before proceeding (you might need them later, even if nothing goes wrong here):
+			<ul>
+				<li>config.php (general settings)</li>
+				<li>footer.php or footer.html (custom footer)</li>
+				<li>importconfig.php (import settings)</li>
+				<li>index.php or index.html (your home page!)</li>
+				<li>logconfig.php (log settings)</li>
+				<li>mapconfig.php (map settings)</li>
+				<li>meta.php (custom meta data & scripting)</li>
+				<li>css/mytngstyle.css (style sheet)</li>
+				<li>pedconfig.php (pedigree settings)</li>
+				<li>templateconfig.php (template settings)</li>
+				<li>topmenu.php or topmenu.html (custom header)</li>
+			</ul></p>
+				<p>A note on the custom header, footer, home page and mytngstyle.css stylesheet: If you're using a post-8.1.0 template, remember that the files you'll want to back up are the ones
+					in the templates/template# folder (where # is the template number). If you never customized these files directly, then you don't actually need to back them up.</p>
+	        	<p>You might also want to back up your <strong>database tables</strong> (using Admin/Utilities), your <strong>table structure</strong> (same place), and any TNG files that you may have altered,
+			   although the risk for data loss during this upgrade is very minimal.</p>
+			   <p>If you have installed any mods, please remove them before installing this upgrade. Look for updated versions to install after the upgrade is complete.</p>
+			<br/>
+		</div>
+	</li>
+
+	<li>
+		<p><b>Upload them.</b> Upload all the files <b>and</b> folders (<b>except</b> the "special" and "templates" folders, which will be covered later) to the main TNG area on your web site. For many of you,
+		the main TNG area will be the "public_html" folder. Be sure to overwrite existing files that have the same names. Note: The folders contained in this zip file do not contain
+		all of the files that are supposed to be in the same folders on your site. Only files that have changed since the last release are included. If your upload program will
+		erase the unchanged files when you upload these smaller folders with the same names, then be sure to <b>merge</b> the folders instead.</p>
+	</li>
+
+	<li>
+		<p><strong>Open this readme file from your site.</strong> If you previously opened this file from your local computer, close it now and open it again from your web site
+			(for example, "http://www.mysite.com/readme9x-111.html"). <b>Use a browser, not an FTP program!</b> The file should
+			be among the files you just uploaded.</p>
+	</li>
+
+	<li>
+		<p><b>"Special" Files</b> &nbsp; | &nbsp; <a href="#" id="speclink" onclick="return toggleSection('spec');">Show instructions</a></p>
+		<div id="specdiv" style="display:none">
+			<p>One of your upgrade files should have unzipped into a folder called <b>special.</b> Read below to see if you should upload it. If you
+			do need to upload it, they should go in your main TNG folder. There should not be a "special" folder on your site.</p>
+
+			<ol>
+				<li><p><b>index.php.</b> This is the main home page, but starting in TNG 8.1.0, it is simply a shell that in turn includes the index.php from whichever
+					template you're using. If you're using a template (not one installed prior to 8.1.0) and have never updated your main index.php file, go ahead and upload this
+					copy of index.php to your main TNG folder (it's a good idea to make a backup of this page now if you didn't at the beginning of these instructions, just in case).
+					If you're using a pre-8.1.0 template or your own custom design, then do not upload this file.</p></li>
+
+				<li><p><b>subroot.php.</b> If you've decided to store your config files somewhere other than in the main TNG folder, this file keeps track of that location.
+					If you've never moved your config files, then you can upload and overwrite the subroot.php file without worry. If you're already keeping your config files
+					elsewhere, then you can upload the file and just re-enter the config location in your General Settings (go there first and copy it), or you can copy
+					the first line of this new file and paste it over the first line in your existing file. The change makes TNG's error reporting compatible with newer
+					versions of PHP.</p></li>
+			</ol>
+			<br/>
+		</div>
+	</li>
+
+	<li>
+		<p><b>Update your template.</b> &nbsp; | &nbsp; <a href="#" id="templink" onclick="return toggleSection('temp');">Show instructions</a></p>
+		<div id="tempdiv" style="display:none">
+			<p>If you're using a template and haven't customized any of the actual template files, or if you're using a TNG template that you installed <b>prior to 8.1.0</b>,
+				or if you're not using a template at all (but might in the future),
+				then upload the entire templates folder	included in this upgrade.</p>
+			<p>If you're using a post-8.1.0 template and you have customized the index.php,
+				topmenu.php or footer.php files, then upload everything in the templates folder that you <b>haven't</b> customized (all the templates you're not using, and
+				all the files from your template that you haven't touched). You may also want to examine the new versions of the files that you've changed to see if you'd like
+				to merge in the changes. NOTES: The "Mom's Side/Dad's Side" labels in Template #8 have been moved to a different variable name in this version, so you will definitely
+				want to make sure you have the updated template8/index.php code if you were using Template #8. Also, many of the template home page, header and footer files have been updated to include mobile support. In order to experience those features, you will need to incorporate
+				the latest changes to these files.</p>
+			<p>If you're using a TNG template that you installed <b>prior to 8.1.0</b>, you'll need to locate the folder for your template (i.e., "template6")
+				within the upgrade files (not all templates were changed, so don't worry if you don't find it). If you don't remember which template you're using, compare your site to this page:
+			<a href="http://lythgoes.net/genealogy/templates.php">http://lythgoes.net/genealogy/templates.php</a>). Once you have found it, do the following:</p>
+			<ol>
+				<li><p>Upload all files in the css and img folders to the <b>main</b> css and img folders on your site (<b>not</b> the ones within any of the template folders).</p></li>
+				<li><p>Copy any custom images you were using with your home page or custom header or footer from the main TNG folder into the new img folder. Do not delete
+					them from their original locations just yet. If you changed the color of your TNG tabs, then also copy the tngtab.png and tngtabactive.png files to the
+					img folder.</p></li>
+				<li><p>If you want to use the new Template Switching capability, go to Admin/Setup/Template Settings and set "Enable Template Selection" to Yes. If you then
+					select a template number on that same page, TNG will use the home page, header/footer and style sheet for that template from the "templates" folder. To
+					customize any of those templates, edit the files in the corresponding folder within "templates". Selecting no template number will show your site as it is
+					now.</p></li>
+			</ol>
+		</div>
+	</li>
+
+	<li>
+		<p><b>Other file operations.</b> &nbsp; | &nbsp; <a href="#" id="opslink" onclick="return toggleSection('ops');">Show instructions</a></p>
+		<div id="opsdiv" style="display:none">
+			<p>In your web browser, run the script <a href="upgrade_fileops9x-11x.php" target="_blank">upgrade_fileops9x-11x.php</a> (or just click the link). This operation
+			will open a new window and attempt to do the following:</p>
+
+			<ol>
+ 				<li><p>Update your Template Settings to include default information for new templates.</p></li>
+ 			</ol>
+
+			<p>When the operation is complete, it is recommended that you <strong>remove</strong> the upgrade_fileops9x-11x.php file from your web site. If any of these
+				operations fail because your server will not allow them, you will need to perform them yourself.</p>
+			<br/>
+		</div>
+	</li>
+
+    <li>
+		<p><b>Update the database structure.</b> &nbsp; | &nbsp; <a href="#" id="dblink" onclick="return toggleSection('db');">Show instructions</a></p>
+		<div id="dbdiv" style="display:none">
+			<p>A few new tables have been added in this version. Go to your <a href="admin_genconfig.php" target="_blank">General Settings</a> (just click the link),
+			log in if necessary, then expand the line that says <strong>Table Names</strong> and notice that the new table names will be 
+			blank. Please fill in unique names for these tables (make sure the new names are not shared by any existing tables). Recommended names 
+			are "tng_dna_tests" (DNA Tests) and "tng_dna_links" (DNA Links). Don't forget to click the "Save" 
+			button at the bottom of the page to save your changes!</p>
+			
+			<p><strong>IMPORTANT:</strong> Please do not miss any of the new table names! You will see database errors later on if you do! DO NOT
+			rename any of the existing tables!</p><br />
+	
+			<p>Next, run the script <a href="upgrade_db9x-11x.php" target="_blank">upgrade_db9x-11x.php</a> (or just click the link). This operation will
+			open a new window and make a few database structure changes. Your data should not be affected. You will see a short list of messages detailing what
+			is being done, as well as a message when the script has finished. When the operation is complete, it is recommended that you <strong>remove</strong> the
+			upgrade_db9x-10x.php file from your web site. <b>NOTE:</b> New indexes are being added, so this could take a few minutes for some of you.</p>
+
+			<!--<p>NOTE: Because this database update is compatible with several incremental versions, there may be some commands that have already been done, so don't
+			be alarmed if some lines say "failed or done previously".</p>-->
+			<br/>
+		</div>
+	</li>
+	<li>
+		<p><b>Clear your cache.</b> &nbsp; | &nbsp; <a href="#" id="cclink" onclick="return toggleSection('cc');">Show instructions</a></p>
+		<div id="ccdiv" style="display:none">
+			<p>It isn't always necessary, but if things aren't working properly after the upgrade, it could just be that some of the old files or
+				pages are still stuck in your browser cache. Before asking for help, please clear your cache and check your results again. If you
+				need help figuring out how to do this, please see this page on the TNG wiki:
+			<a href="http://tng.lythgoes.net/wiki/index.php?title=Bypassing_Browser_Cache" target="_blank">http://tng.lythgoes.net/wiki/index.php?title=Bypassing_Browser_Cache</a>.</p>
+			<br/>
+		</div>
+	</li>
+
+</ol>
+<p>The update should be complete. You did it! If anything doesn't look right, please try the following before asking for support:</p>
+
+<ol>
+	<li>Review all the instructions again. Make sure you didn't miss something!</li>
+	<li>Edit your browser history and delete the temporary Internet files (sometimes called the "cache"), then refresh the page.</li>
+</ol>
+
+<p><strong>NOTES:</strong></p>
+<p><b>WordPress Users:</b> If you're using the TNG-WordPress plugin, go to the TNG plugin page in WordPress Admin panel once you've finished these steps and click the
+	"Update TNG Variables" button. Some of the new features may not work until you do this.</p>
+<p><b>Obsolete files.</b> The following files, all located in the "js" folder, are now obsolete and can be deleted: dragdrop.js, effects.js, prototype.js and scriptaculous.js.</p>
+
+<p><b>Convenience Links:</b><br/>
+Go to your <a href="index.php">home page</a><br/>
+Go to the <a href="admin.php">Admin menu</a> (address is now "admin.php" instead of "admin/index.php")</p><br/>
+
+</body>
+</html>

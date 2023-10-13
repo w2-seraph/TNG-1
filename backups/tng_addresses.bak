@@ -1,0 +1,11 @@
+addressID,address1,address2,city,state,zip,country,www,email,phone,gedcom
+"2","35 N West Temple Street","Salt Lake City, UT 84150  USA","Salt Lake City","Utah","84150","","","","","fitzvalley"
+"3","35 N West Temple Street","Salt Lake City, UT 84150  USA","Salt Lake City","Utah","84150","","","","","fitzvalley"
+"7","","","Annapolis","MD","21401","","","","","fitzvalley"
+"8","","","Chestertown","MD","","","","","","fitzvalley"
+"9","","","Baltimore","MD","21201","","","","","fitzvalley"
+"10","","","Chicago","IL","60610-3380","","","","","fitzvalley"
+"12","","","","Maryland","","","","","","fitzvalley"
+"13","PO Box 16","","Northwood","ND","58267","USA","","","","fitzvalley"
+"14","1020 N Main","","Minot","ND","58703","USA","","","","fitzvalley"
+"15","37 Kulp Avenue","","","","","","","","","fitzvalley"

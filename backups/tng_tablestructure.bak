@@ -1,0 +1,585 @@
+DROP TABLE IF EXISTS tng_addresses;
+CREATE TABLE `tng_addresses` (
+  `addressID` int(11) NOT NULL AUTO_INCREMENT,
+  `address1` varchar(64) NOT NULL DEFAULT '',
+  `address2` varchar(64) NOT NULL DEFAULT '',
+  `city` varchar(64) NOT NULL DEFAULT '',
+  `state` varchar(64) NOT NULL DEFAULT '',
+  `zip` varchar(10) NOT NULL DEFAULT '',
+  `country` varchar(64) NOT NULL DEFAULT '',
+  `www` varchar(100) NOT NULL DEFAULT '',
+  `email` varchar(100) NOT NULL DEFAULT '',
+  `phone` varchar(30) NOT NULL DEFAULT '',
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`addressID`),
+  KEY `address` (`gedcom`,`country`,`state`,`city`,`address1`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_albums;
+CREATE TABLE `tng_albums` (
+  `albumID` int(11) NOT NULL AUTO_INCREMENT,
+  `albumname` varchar(100) NOT NULL,
+  `description` text,
+  `alwayson` tinyint(4) DEFAULT NULL,
+  `keywords` text,
+  `active` tinyint(4) NOT NULL,
+  PRIMARY KEY (`albumID`),
+  KEY `albumname` (`albumname`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_albumlinks;
+CREATE TABLE `tng_albumlinks` (
+  `albumlinkID` int(11) NOT NULL AUTO_INCREMENT,
+  `albumID` int(11) NOT NULL DEFAULT '0',
+  `mediaID` int(11) NOT NULL DEFAULT '0',
+  `ordernum` int(11) DEFAULT NULL,
+  `defphoto` char(1) NOT NULL DEFAULT '',
+  PRIMARY KEY (`albumlinkID`),
+  KEY `albumID` (`albumID`,`ordernum`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_albumplinks;
+CREATE TABLE `tng_albumplinks` (
+  `alinkID` int(11) NOT NULL AUTO_INCREMENT,
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `linktype` char(1) NOT NULL DEFAULT '',
+  `entityID` varchar(100) NOT NULL DEFAULT '',
+  `eventID` varchar(10) NOT NULL DEFAULT '',
+  `albumID` int(11) NOT NULL DEFAULT '0',
+  `ordernum` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`alinkID`),
+  UNIQUE KEY `alinkID` (`gedcom`,`entityID`,`albumID`),
+  KEY `entityID` (`gedcom`,`entityID`,`ordernum`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_associations;
+CREATE TABLE `tng_associations` (
+  `assocID` int(11) NOT NULL AUTO_INCREMENT,
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `personID` varchar(22) NOT NULL DEFAULT '',
+  `passocID` varchar(22) NOT NULL DEFAULT '',
+  `reltype` varchar(1) NOT NULL,
+  `relationship` varchar(75) NOT NULL,
+  PRIMARY KEY (`assocID`),
+  KEY `assoc` (`gedcom`,`personID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_branches;
+CREATE TABLE `tng_branches` (
+  `branch` varchar(20) NOT NULL DEFAULT '',
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `description` varchar(128) NOT NULL DEFAULT '',
+  `personID` varchar(22) NOT NULL,
+  `agens` int(11) NOT NULL,
+  `dgens` int(11) NOT NULL,
+  `dagens` int(11) NOT NULL,
+  `inclspouses` tinyint(4) NOT NULL,
+  `action` tinyint(4) NOT NULL,
+  PRIMARY KEY (`gedcom`,`branch`),
+  KEY `description` (`gedcom`,`description`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_branchlinks;
+CREATE TABLE `tng_branchlinks` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `branch` varchar(20) NOT NULL DEFAULT '',
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `persfamID` varchar(22) NOT NULL DEFAULT '',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `branch` (`gedcom`,`branch`,`persfamID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7368 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_cemeteries;
+CREATE TABLE `tng_cemeteries` (
+  `cemeteryID` int(11) NOT NULL AUTO_INCREMENT,
+  `cemname` varchar(64) NOT NULL DEFAULT '',
+  `maplink` varchar(255) NOT NULL,
+  `city` varchar(64) NOT NULL DEFAULT '',
+  `county` varchar(64) NOT NULL DEFAULT '',
+  `state` varchar(64) NOT NULL DEFAULT '',
+  `country` varchar(64) NOT NULL DEFAULT '',
+  `longitude` varchar(22) NOT NULL,
+  `latitude` varchar(22) NOT NULL,
+  `zoom` tinyint(4) DEFAULT NULL,
+  `notes` text NOT NULL,
+  `place` varchar(248) NOT NULL,
+  PRIMARY KEY (`cemeteryID`),
+  KEY `cemname` (`cemname`),
+  KEY `place` (`place`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_people;
+CREATE TABLE `tng_people` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `personID` varchar(22) NOT NULL DEFAULT '',
+  `lnprefix` varchar(25) NOT NULL DEFAULT '',
+  `lastname` varchar(127) NOT NULL DEFAULT '',
+  `firstname` varchar(127) NOT NULL DEFAULT '',
+  `birthdate` varchar(50) NOT NULL DEFAULT '',
+  `birthdatetr` date NOT NULL DEFAULT '0000-00-00',
+  `sex` tinytext NOT NULL,
+  `birthplace` text NOT NULL,
+  `deathdate` varchar(50) NOT NULL DEFAULT '',
+  `deathdatetr` date NOT NULL DEFAULT '0000-00-00',
+  `deathplace` text NOT NULL,
+  `altbirthdate` varchar(50) NOT NULL DEFAULT '',
+  `altbirthdatetr` date NOT NULL DEFAULT '0000-00-00',
+  `altbirthplace` text NOT NULL,
+  `burialdate` varchar(50) NOT NULL DEFAULT '',
+  `burialdatetr` date NOT NULL DEFAULT '0000-00-00',
+  `burialplace` text NOT NULL,
+  `burialtype` tinyint(4) NOT NULL,
+  `baptdate` varchar(50) NOT NULL DEFAULT '',
+  `baptdatetr` date NOT NULL DEFAULT '0000-00-00',
+  `baptplace` text NOT NULL,
+  `confdate` varchar(50) NOT NULL,
+  `confdatetr` date NOT NULL,
+  `confplace` text NOT NULL,
+  `initdate` varchar(50) NOT NULL,
+  `initdatetr` date NOT NULL,
+  `initplace` text NOT NULL,
+  `endldate` varchar(50) NOT NULL DEFAULT '',
+  `endldatetr` date NOT NULL DEFAULT '0000-00-00',
+  `endlplace` text NOT NULL,
+  `changedate` datetime NOT NULL,
+  `nickname` text NOT NULL,
+  `title` tinytext NOT NULL,
+  `prefix` tinytext NOT NULL,
+  `suffix` tinytext NOT NULL,
+  `nameorder` tinyint(4) NOT NULL DEFAULT '0',
+  `famc` varchar(22) DEFAULT NULL,
+  `metaphone` varchar(15) NOT NULL DEFAULT '',
+  `living` tinyint(4) NOT NULL DEFAULT '0',
+  `private` tinyint(4) NOT NULL,
+  `branch` varchar(100) NOT NULL DEFAULT '',
+  `changedby` varchar(20) NOT NULL DEFAULT '',
+  `edituser` varchar(20) NOT NULL,
+  `edittime` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `gedpers` (`gedcom`,`personID`),
+  KEY `lastname` (`lastname`,`firstname`),
+  KEY `firstname` (`firstname`),
+  KEY `gedlast` (`gedcom`,`lastname`,`firstname`),
+  KEY `gedfirst` (`gedcom`,`firstname`),
+  KEY `changedate` (`changedate`),
+  KEY `birthplace` (`birthplace`(20)),
+  KEY `altbirthplace` (`altbirthplace`(20)),
+  KEY `deathplace` (`deathplace`(20)),
+  KEY `burialplace` (`burialplace`(20)),
+  KEY `famc` (`gedcom`,`famc`),
+  KEY `pid` (`personID`),
+  KEY `baptplace` (`baptplace`(20)),
+  KEY `endlplace` (`endlplace`(20))
+) ENGINE=InnoDB AUTO_INCREMENT=61211 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_families;
+CREATE TABLE `tng_families` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `familyID` varchar(22) NOT NULL DEFAULT '',
+  `husband` varchar(22) NOT NULL DEFAULT '',
+  `wife` varchar(22) NOT NULL DEFAULT '',
+  `marrdate` varchar(50) NOT NULL DEFAULT '',
+  `marrdatetr` date NOT NULL DEFAULT '0000-00-00',
+  `marrplace` text NOT NULL,
+  `marrtype` varchar(90) NOT NULL,
+  `divdate` varchar(50) NOT NULL DEFAULT '',
+  `divdatetr` date NOT NULL DEFAULT '0000-00-00',
+  `divplace` text NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT '',
+  `sealdate` varchar(50) NOT NULL DEFAULT '',
+  `sealdatetr` date NOT NULL DEFAULT '0000-00-00',
+  `sealplace` text NOT NULL,
+  `husborder` tinyint(4) NOT NULL DEFAULT '0',
+  `wifeorder` tinyint(4) NOT NULL DEFAULT '0',
+  `changedate` datetime NOT NULL,
+  `living` tinyint(4) NOT NULL DEFAULT '0',
+  `private` tinyint(4) NOT NULL,
+  `branch` varchar(100) NOT NULL DEFAULT '',
+  `changedby` varchar(20) NOT NULL DEFAULT '',
+  `edituser` varchar(20) NOT NULL,
+  `edittime` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `familyID` (`gedcom`,`familyID`),
+  KEY `husband` (`gedcom`,`husband`),
+  KEY `wife` (`gedcom`,`wife`),
+  KEY `changedate` (`changedate`),
+  KEY `marrplace` (`marrplace`(20)),
+  KEY `divplace` (`divplace`(20))
+) ENGINE=InnoDB AUTO_INCREMENT=23413 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_children;
+CREATE TABLE `tng_children` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `familyID` varchar(22) NOT NULL DEFAULT '',
+  `personID` varchar(22) NOT NULL DEFAULT '',
+  `frel` varchar(20) NOT NULL,
+  `mrel` varchar(20) NOT NULL,
+  `sealdate` varchar(50) NOT NULL DEFAULT '',
+  `sealdatetr` date NOT NULL DEFAULT '0000-00-00',
+  `sealplace` text NOT NULL,
+  `haskids` tinyint(4) NOT NULL DEFAULT '0',
+  `ordernum` smallint(6) NOT NULL DEFAULT '0',
+  `parentorder` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `familyID` (`gedcom`,`familyID`,`personID`),
+  KEY `personID` (`gedcom`,`personID`),
+  KEY `pid` (`personID`)
+) ENGINE=InnoDB AUTO_INCREMENT=42710 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_languages;
+CREATE TABLE `tng_languages` (
+  `languageID` smallint(6) NOT NULL AUTO_INCREMENT,
+  `display` varchar(100) NOT NULL DEFAULT '',
+  `folder` varchar(50) NOT NULL DEFAULT '',
+  `charset` varchar(30) NOT NULL DEFAULT '',
+  `norels` varchar(1) NOT NULL,
+  PRIMARY KEY (`languageID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_places;
+CREATE TABLE `tng_places` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `gedcom` varchar(20) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `place` varchar(248) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `longitude` varchar(22) DEFAULT NULL,
+  `latitude` varchar(22) DEFAULT NULL,
+  `zoom` tinyint(4) DEFAULT NULL,
+  `placelevel` tinyint(4) DEFAULT NULL,
+  `temple` tinyint(4) NOT NULL,
+  `geoignore` tinyint(4) NOT NULL,
+  `notes` text CHARACTER SET latin1,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `place` (`gedcom`,`place`),
+  KEY `temple` (`temple`,`gedcom`,`place`)
+) ENGINE=InnoDB AUTO_INCREMENT=15167 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS tng_states;
+CREATE TABLE `tng_states` (
+  `state` varchar(64) NOT NULL DEFAULT '',
+  PRIMARY KEY (`state`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_countries;
+CREATE TABLE `tng_countries` (
+  `country` varchar(64) NOT NULL DEFAULT '',
+  PRIMARY KEY (`country`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_sources;
+CREATE TABLE `tng_sources` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `sourceID` varchar(22) NOT NULL DEFAULT '',
+  `callnum` varchar(120) NOT NULL,
+  `type` varchar(20) NOT NULL DEFAULT '',
+  `title` text NOT NULL,
+  `author` text NOT NULL,
+  `publisher` text NOT NULL,
+  `other` text NOT NULL,
+  `shorttitle` text NOT NULL,
+  `comments` text NOT NULL,
+  `actualtext` text NOT NULL,
+  `repoID` varchar(22) NOT NULL DEFAULT '',
+  `changedate` datetime DEFAULT NULL,
+  `changedby` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `sourceID` (`gedcom`,`sourceID`),
+  KEY `changedate` (`changedate`),
+  FULLTEXT KEY `sourcetext` (`actualtext`)
+) ENGINE=InnoDB AUTO_INCREMENT=1589 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_repositories;
+CREATE TABLE `tng_repositories` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `repoID` varchar(22) NOT NULL DEFAULT '',
+  `reponame` varchar(90) NOT NULL DEFAULT '',
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `addressID` int(11) NOT NULL DEFAULT '0',
+  `changedate` datetime DEFAULT NULL,
+  `changedby` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `repoID` (`gedcom`,`repoID`),
+  KEY `reponame` (`reponame`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_citations;
+CREATE TABLE `tng_citations` (
+  `citationID` int(11) NOT NULL AUTO_INCREMENT,
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `persfamID` varchar(22) NOT NULL DEFAULT '',
+  `eventID` varchar(10) NOT NULL DEFAULT '',
+  `sourceID` varchar(22) NOT NULL DEFAULT '',
+  `ordernum` float NOT NULL,
+  `description` text NOT NULL,
+  `citedate` varchar(50) NOT NULL DEFAULT '',
+  `citedatetr` date NOT NULL DEFAULT '0000-00-00',
+  `citetext` text NOT NULL,
+  `page` text NOT NULL,
+  `quay` char(2) NOT NULL DEFAULT '',
+  `note` text NOT NULL,
+  PRIMARY KEY (`citationID`),
+  KEY `citations_fk3` (`gedcom`,`sourceID`),
+  KEY `citation` (`gedcom`,`persfamID`,`eventID`,`sourceID`,`description`(20))
+) ENGINE=InnoDB AUTO_INCREMENT=25580 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_reports;
+CREATE TABLE `tng_reports` (
+  `reportID` int(11) NOT NULL AUTO_INCREMENT,
+  `reportname` varchar(80) NOT NULL DEFAULT '',
+  `reportdesc` text NOT NULL,
+  `rank` int(11) NOT NULL DEFAULT '0',
+  `display` text NOT NULL,
+  `criteria` text NOT NULL,
+  `orderby` text NOT NULL,
+  `sqlselect` text NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`reportID`),
+  KEY `reportname` (`reportname`),
+  KEY `rank` (`rank`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_events;
+CREATE TABLE `tng_events` (
+  `eventID` int(11) NOT NULL AUTO_INCREMENT,
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `persfamID` varchar(22) NOT NULL DEFAULT '',
+  `eventtypeID` int(11) NOT NULL DEFAULT '0',
+  `eventdate` varchar(50) NOT NULL DEFAULT '',
+  `eventdatetr` date NOT NULL DEFAULT '0000-00-00',
+  `eventplace` text NOT NULL,
+  `age` varchar(12) NOT NULL DEFAULT '',
+  `agency` varchar(120) NOT NULL DEFAULT '',
+  `cause` varchar(90) NOT NULL DEFAULT '',
+  `addressID` varchar(10) NOT NULL DEFAULT '',
+  `parenttag` varchar(10) NOT NULL DEFAULT '',
+  `info` text NOT NULL,
+  PRIMARY KEY (`eventID`),
+  KEY `persfamID` (`gedcom`,`persfamID`),
+  KEY `events_fk4` (`eventtypeID`),
+  KEY `eventplace` (`gedcom`,`eventplace`(20))
+) ENGINE=InnoDB AUTO_INCREMENT=11489 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_eventtypes;
+CREATE TABLE `tng_eventtypes` (
+  `eventtypeID` int(11) NOT NULL AUTO_INCREMENT,
+  `tag` varchar(10) NOT NULL DEFAULT '',
+  `description` varchar(90) NOT NULL DEFAULT '',
+  `display` text NOT NULL,
+  `keep` tinyint(4) NOT NULL DEFAULT '0',
+  `collapse` tinyint(4) NOT NULL,
+  `ordernum` smallint(6) NOT NULL DEFAULT '0',
+  `type` char(1) NOT NULL DEFAULT '',
+  PRIMARY KEY (`eventtypeID`),
+  UNIQUE KEY `typetagdesc` (`type`,`tag`,`description`),
+  KEY `ordernum` (`ordernum`)
+) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_trees;
+CREATE TABLE `tng_trees` (
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `treename` varchar(100) NOT NULL DEFAULT '',
+  `description` text NOT NULL,
+  `owner` varchar(100) NOT NULL DEFAULT '',
+  `email` varchar(100) NOT NULL DEFAULT '',
+  `address` varchar(100) NOT NULL DEFAULT '',
+  `city` varchar(40) NOT NULL DEFAULT '',
+  `state` varchar(30) NOT NULL DEFAULT '',
+  `country` varchar(30) NOT NULL DEFAULT '',
+  `zip` varchar(20) NOT NULL DEFAULT '',
+  `phone` varchar(30) NOT NULL DEFAULT '',
+  `secret` tinyint(4) NOT NULL DEFAULT '0',
+  `disallowgedcreate` tinyint(4) NOT NULL DEFAULT '0',
+  `disallowpdf` tinyint(4) NOT NULL,
+  `lastimportdate` datetime DEFAULT NULL,
+  `importfilename` varchar(100) NOT NULL,
+  PRIMARY KEY (`gedcom`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_notelinks;
+CREATE TABLE `tng_notelinks` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `persfamID` varchar(22) NOT NULL DEFAULT '',
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `xnoteID` int(11) NOT NULL DEFAULT '0',
+  `eventID` varchar(10) NOT NULL DEFAULT '',
+  `ordernum` float NOT NULL,
+  `secret` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `notelinks` (`gedcom`,`persfamID`,`eventID`)
+) ENGINE=InnoDB AUTO_INCREMENT=13454 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_xnotes;
+CREATE TABLE `tng_xnotes` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `noteID` varchar(22) NOT NULL DEFAULT '',
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `note` text NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `noteID` (`gedcom`,`noteID`),
+  KEY `xnotes_fk1` (`gedcom`,`ID`),
+  FULLTEXT KEY `note` (`note`)
+) ENGINE=InnoDB AUTO_INCREMENT=14587 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_users;
+CREATE TABLE `tng_users` (
+  `userID` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(50) NOT NULL DEFAULT '',
+  `username` varchar(100) NOT NULL DEFAULT '',
+  `password` varchar(128) NOT NULL,
+  `password_type` varchar(10) NOT NULL,
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `mygedcom` varchar(20) NOT NULL,
+  `personID` varchar(22) NOT NULL,
+  `role` varchar(15) NOT NULL,
+  `allow_edit` tinyint(4) NOT NULL DEFAULT '0',
+  `allow_add` tinyint(4) NOT NULL DEFAULT '0',
+  `tentative_edit` tinyint(4) NOT NULL DEFAULT '0',
+  `allow_delete` tinyint(4) NOT NULL DEFAULT '0',
+  `allow_lds` tinyint(4) NOT NULL DEFAULT '0',
+  `allow_ged` tinyint(4) NOT NULL DEFAULT '0',
+  `allow_pdf` tinyint(4) NOT NULL,
+  `allow_living` tinyint(4) NOT NULL DEFAULT '0',
+  `allow_private` tinyint(4) NOT NULL,
+  `allow_profile` tinyint(4) NOT NULL,
+  `branch` varchar(20) NOT NULL DEFAULT '',
+  `realname` varchar(50) NOT NULL DEFAULT '',
+  `phone` varchar(30) NOT NULL DEFAULT '',
+  `email` varchar(50) NOT NULL DEFAULT '',
+  `address` varchar(100) NOT NULL DEFAULT '',
+  `city` varchar(64) NOT NULL DEFAULT '',
+  `state` varchar(64) NOT NULL DEFAULT '',
+  `zip` varchar(10) NOT NULL DEFAULT '',
+  `country` varchar(64) NOT NULL DEFAULT '',
+  `website` varchar(128) NOT NULL DEFAULT '',
+  `languageID` smallint(6) NOT NULL,
+  `lastlogin` datetime DEFAULT NULL,
+  `disabled` tinyint(4) NOT NULL,
+  `dt_registered` datetime DEFAULT NULL,
+  `dt_activated` datetime DEFAULT NULL,
+  `no_email` tinyint(4) DEFAULT NULL,
+  `notes` text NOT NULL,
+  PRIMARY KEY (`userID`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=313 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_timelineevents;
+CREATE TABLE `tng_timelineevents` (
+  `tleventID` int(11) NOT NULL AUTO_INCREMENT,
+  `evday` tinyint(4) DEFAULT NULL,
+  `evmonth` tinyint(4) DEFAULT NULL,
+  `evyear` varchar(10) NOT NULL DEFAULT '',
+  `endday` tinyint(4) NOT NULL,
+  `endmonth` tinyint(4) NOT NULL,
+  `endyear` varchar(10) NOT NULL,
+  `evtitle` varchar(128) NOT NULL,
+  `evdetail` text NOT NULL,
+  PRIMARY KEY (`tleventID`),
+  KEY `evdetail` (`evdetail`(100)),
+  KEY `evyear` (`evyear`,`evmonth`,`evday`,`evdetail`(100))
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_temp_events;
+CREATE TABLE `tng_temp_events` (
+  `tempID` int(11) NOT NULL AUTO_INCREMENT,
+  `type` char(1) NOT NULL DEFAULT '',
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `personID` varchar(22) NOT NULL DEFAULT '',
+  `familyID` varchar(22) NOT NULL DEFAULT '',
+  `eventID` varchar(10) NOT NULL DEFAULT '',
+  `eventdate` varchar(50) NOT NULL DEFAULT '',
+  `eventplace` text NOT NULL,
+  `info` text NOT NULL,
+  `note` text NOT NULL,
+  `user` varchar(20) NOT NULL DEFAULT '',
+  `postdate` datetime DEFAULT NULL,
+  PRIMARY KEY (`tempID`),
+  KEY `gedtype` (`gedcom`,`type`),
+  KEY `user` (`user`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_media;
+CREATE TABLE `tng_media` (
+  `mediaID` int(11) NOT NULL AUTO_INCREMENT,
+  `mediatypeID` varchar(20) NOT NULL DEFAULT '',
+  `mediakey` varchar(255) NOT NULL,
+  `gedcom` varchar(20) NOT NULL,
+  `form` varchar(10) NOT NULL DEFAULT '',
+  `path` varchar(255) DEFAULT NULL,
+  `description` text,
+  `datetaken` varchar(50) DEFAULT NULL,
+  `placetaken` text,
+  `notes` text,
+  `owner` text,
+  `thumbpath` varchar(255) DEFAULT NULL,
+  `alwayson` tinyint(4) DEFAULT NULL,
+  `map` text,
+  `abspath` tinyint(4) DEFAULT NULL,
+  `status` varchar(40) DEFAULT NULL,
+  `showmap` smallint(6) DEFAULT NULL,
+  `cemeteryID` int(11) DEFAULT NULL,
+  `plot` text,
+  `linktocem` tinyint(4) DEFAULT NULL,
+  `longitude` varchar(22) DEFAULT NULL,
+  `latitude` varchar(22) DEFAULT NULL,
+  `zoom` tinyint(4) DEFAULT NULL,
+  `width` smallint(6) DEFAULT NULL,
+  `height` smallint(6) DEFAULT NULL,
+  `bodytext` text,
+  `usenl` tinyint(4) DEFAULT NULL,
+  `newwindow` tinyint(4) DEFAULT NULL,
+  `usecollfolder` tinyint(4) DEFAULT NULL,
+  `changedate` datetime DEFAULT NULL,
+  `changedby` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`mediaID`),
+  UNIQUE KEY `mediakey` (`gedcom`,`mediakey`),
+  KEY `mediatypeID` (`mediatypeID`),
+  KEY `changedate` (`changedate`),
+  KEY `description` (`description`(20)),
+  KEY `headstones` (`cemeteryID`,`description`(20))
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_medialinks;
+CREATE TABLE `tng_medialinks` (
+  `medialinkID` int(11) NOT NULL AUTO_INCREMENT,
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `linktype` char(1) NOT NULL DEFAULT '',
+  `personID` varchar(248) NOT NULL,
+  `eventID` varchar(10) NOT NULL DEFAULT '',
+  `mediaID` int(11) NOT NULL DEFAULT '0',
+  `altdescription` text NOT NULL,
+  `altnotes` text NOT NULL,
+  `ordernum` float NOT NULL DEFAULT '0',
+  `dontshow` tinyint(4) NOT NULL,
+  `defphoto` char(1) NOT NULL DEFAULT '',
+  PRIMARY KEY (`medialinkID`),
+  UNIQUE KEY `mediaID` (`gedcom`,`personID`,`mediaID`,`eventID`),
+  KEY `personID` (`gedcom`,`personID`,`ordernum`)
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_mediatypes;
+CREATE TABLE `tng_mediatypes` (
+  `mediatypeID` varchar(20) NOT NULL DEFAULT '',
+  `display` varchar(40) NOT NULL DEFAULT '',
+  `path` varchar(127) NOT NULL DEFAULT '',
+  `liketype` varchar(20) NOT NULL DEFAULT '',
+  `icon` varchar(50) NOT NULL DEFAULT '',
+  `thumb` varchar(50) NOT NULL,
+  `exportas` varchar(20) NOT NULL,
+  `disabled` tinyint(4) NOT NULL,
+  `ordernum` tinyint(4) DEFAULT NULL,
+  `localpath` varchar(250) NOT NULL,
+  PRIMARY KEY (`mediatypeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_mostwanted;
+CREATE TABLE `tng_mostwanted` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ordernum` float NOT NULL DEFAULT '0',
+  `gedcom` varchar(20) NOT NULL DEFAULT '',
+  `mwtype` varchar(10) NOT NULL DEFAULT '',
+  `title` varchar(128) NOT NULL DEFAULT '',
+  `description` text NOT NULL,
+  `personID` varchar(22) NOT NULL DEFAULT '',
+  `mediaID` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `mwtype` (`mwtype`,`ordernum`,`title`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_dnalinks;
+CREATE TABLE `tng_dnalinks` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `testID` int(11) NOT NULL,
+  `personID` varchar(22) NOT NULL,
+  `gedcom` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS tng_dnatests;
+CREATE TABLE `tng_dnatests` (
+  `testID` int(11) NOT NULL AUTO_INCREMENT,
+  `test_type` varchar(40) NOT NULL,
+  `test_number` varchar(50) NOT NULL,
+  `notes` text NOT NULL,
+  `vendor` varchar(100) NOT NULL,
+  `test_date` date NOT NULL,
+  `personID` varchar(22) NOT NULL,
+  `gedcom` varchar(20) NOT NULL,
+  `urls` text NOT NULL,
+  `haplogroup` varchar(40) NOT NULL,
+  `significant_snp` varchar(80) NOT NULL,
+  `terminal_snp` varchar(80) NOT NULL,
+  `markers` varchar(40) NOT NULL,
+  PRIMARY KEY (`testID`),
+  KEY `test_date` (`test_date`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;

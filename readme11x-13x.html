@@ -1,0 +1,175 @@
+<!-- The Next Generation of Genealogy Sitebuilding, v13.x, Written by Darrin Lythgoe, 2001-2020 -->
+<html>
+<head>
+	<link href="genstyle.css" rel="stylesheet">
+	<link href="css/genstyle.css" rel="stylesheet">
+
+	<script type="text/javascript">
+		function toggleSection(sectionName) {
+			var section = document.getElementById(sectionName + 'div');
+			var link = document.getElementById(sectionName + 'link');
+			
+			if(section.style.display == "none") {
+				section.style.display = "";
+				link.innerHTML = "Hide instructions";
+			}
+			else {
+				section.style.display = "none";
+				link.innerHTML = "Show instructions";
+			}
+			return false;
+		}
+	</script>
+</head>
+<body style="font-size:12pt;">
+
+<h1>TNG 13.x Upgrade</h1>
+<p>(From v.11.x )</p>
+
+<h2>Installation Instructions</h2>
+
+<ol>
+	<li>
+		<p><b>Back up settings and custom files, other preparation.</b> &nbsp; | &nbsp; <a href="#" id="backuplink" onclick="return toggleSection('backup');">Show instructions</a></p>
+		<div id="backupdiv" style="display:none">
+			<p>If you haven't done so lately, please make a backup of the following important files before proceeding (you might need them later, even if nothing goes wrong here):
+			<ul>
+				<li>config.php (general settings)</li>
+				<li>*footer.php or footer.html (custom footer)</li>
+				<li>importconfig.php (import settings)</li>
+				<li>*index.php or index.html (your home page!)</li>
+				<li>logconfig.php (log settings)</li>
+				<li>mapconfig.php (map settings)</li>
+				<li>meta.php (custom meta data & scripting)</li>
+				<li>mmconfig.php (mod manager settings)</li>
+				<li>*css/mytngstyle.css (style sheet)</li>
+				<li>pedconfig.php (pedigree settings)</li>
+				<li>templateconfig.php (template settings)</li>
+				<li>*topmenu.php or topmenu.html (custom header)</li>
+			</ul></p>
+				<p>*A note on the custom header, footer, home page and mytngstyle.css stylesheet: If you're using a post-8.1.0 template, remember that the files you'll want to back up are the ones
+					in the templates/template# folder (where # is the template number). If you never customized these files directly, then you don't actually need to back them up.</p>
+	        	<p>You might also want to back up your <strong>database tables</strong> (using Admin/Utilities), your <strong>table structure</strong> (same place), and any TNG files that you may have altered,
+			   although the risk for data loss during this upgrade is very minimal.</p>
+			<br/>
+		</div>
+	</li>
+
+	<li>
+		<p><b>Uninstall all mods.</b> &nbsp; | &nbsp; <a href="#" id="uninstalllink" onclick="return toggleSection('uninstall');">Show instructions</a> </p>
+		<div id="uninstalldiv" style="display:none">
+			<p>If you previously installed any mods with the Mod Manager, uninstall all of them before proceeding with the upgrade.</p>
+			<ol>
+				<li>in Admin > Mod Manager, select <b>Installed</b> and click the <b>Go</b> button</li>
+				<li>on the Installed selection screen, click the <b>Select All</b> button  and then click the <b>Uninstall</b> button</li>
+				<li>Select <b>Partially Installed</b> and click the <b>Go</b> button</li>
+				<li>on the Partially Installed selection screen, click the <b>Select All</b> button  and then click the <b>Clean Up</b> button</li>
+				<li>When you return to the Mod List, the All mods screen should show all the mods as <b>Ok to Install</b> or <b>Cannot Install</b></li>
+				<li>If any mods cannot be reinstalled, check here for updates: <a href="https://tng.lythgoes.net/wiki/index.php?title=Category:Mods_for_TNG_v13" target="_blank">https://tng.lythgoes.net/wiki/index.php?title=Category:Mods_for_TNG_v13</a></li>
+			</ol>
+			<p>When the upgrade is complete, you may reinstall if needed. Look for updated versions of any that are not ready to be immediately reinstalled.</p>
+		</div>
+	</li>
+			
+	<li>
+		<p><b>Upload the files and folders.</b> &nbsp; | &nbsp; <a href="#" id="uploadlink" onclick="return toggleSection('upload');">Show instructions</a> </p>
+		<div id="uploaddiv" style="display:none">
+			<p>Upload all the files <b>and</b> folders (<b>except</b> the "special" and "templates" folders, which will be covered later) to the main TNG area on your web site. For many 
+			of you, the main TNG area will be the "public_html" folder. Be sure to overwrite existing files that have the same names. Note: The 
+			folders contained in this zip file do not contain	all of the files that are supposed to be in the same folders on your site. Only 
+			files that have changed since the last release are included. If your upload program will erase the unchanged files when you upload 
+			these smaller folders with the same names, then be sure to <b>merge</b> the folders instead.</p>
+		</div>
+	</li>
+
+	<li>
+		<p><strong>Open this readme file from your site.</strong> &nbsp; | &nbsp; <a href="#" id="openlink" onclick="return toggleSection('open');">Show instructions</a></p>
+		<div id="opendiv" style="display:none">
+			<p>If you previously opened this file from your local computer, close it now and open it again from your web site
+			(for example, "http://www.mysite.com/readme11x-13x.html"). <b>Use a browser, not an FTP program!</b> The file should
+			be among the files you just uploaded.</p>
+		</div>
+	</li>
+
+	<li>
+		<p><b>"Special" Files</b> &nbsp; | &nbsp; <a href="#" id="speclink" onclick="return toggleSection('spec');">Show instructions</a></p>
+		<div id="specdiv" style="display:none">
+			<p>Some of your upgrade files should have unzipped into a folder called <b>special.</b> Read below to see if you should upload it. If you do need to upload it, it should go in your main TNG folder. There should not be a "special" folder on your site.</p>
+
+			<ol>
+				<li><p><b>subroot.php.</b> If you've decided to store your config files somewhere other than in the main TNG folder, this file keeps track of that location.
+					If you've never moved your config files, then you can upload and overwrite the subroot.php file without worry. If you're already keeping your config files
+					elsewhere, then you can upload the file and just re-enter the config location in your General Settings (go there first and copy it), or you can manually insert the config location the appropriate spot in this file and then upload it.</p></li>
+				<li><p><b>tngrobots.php.</b> This file attempts to tell Google and other search engines which files to index and which ones to ignore. If you've never touched it, then go ahead and upload it. Otherwise, merge in your changes first.</p></li>
+			</ol>
+			<br/>
+		</div>
+	</li>
+	<li>
+		<p><b>Templates</b> &nbsp; | &nbsp; <a href="#" id="templink" onclick="return toggleSection('temp');">Show instructions</a></p>
+		<div id="tempdiv" style="display:none">
+			<p><b>Most people:</b> If you're using a template and haven't changed any of the actual template files, 
+				or if you're not using a template at all (but might in the future),
+				then upload the entire templates folder	included in this upgrade.</p>
+			<p><b>A few of you:</b> If you have altered any of the files in your template folder, then upload everything in the templates folder that you <b>haven't</b> 	 changed (all the templates you're not using, and all the files from your template that you haven't touched). You should then consider merging your changes
+				into the remaining files. NOTE: Many of the template home page, header and footer files have been updated to include mobile support. In order to experience those features, you will need to incorporate the latest changes to these files.</p>
+		</div>
+	</li>
+
+    <li>
+		<p><b>Update the database structure.</b> &nbsp; | &nbsp; <a href="#" id="dblink" onclick="return toggleSection('db');">Show instructions</a></p>
+		<div id="dbdiv" style="display:none">
+			<p>Click this link: <a href="upgrade_db11x-13x.php" target="_blank">upgrade_db11x-13x.php</a>. That operation will
+			open a new window and make a few database structure changes. Your data should not be affected. You will see a short list of messages detailing what
+			is being done, as well as a message when the script has finished. When the operation is complete, you can remove the
+			upgrade_db11x-13x.php file from your site if desired.</p>
+
+			<!--<p>NOTE: Because this database update is compatible with several incremental versions, there may be some commands that have already been done, so don't
+			be alarmed if some lines say "failed or done previously".</p>-->
+		</div>
+	</li>
+
+	<li>
+		<p><b>Convert image maps.</b> &nbsp; | &nbsp; <a href="#" id="imlink" onclick="return toggleSection('im');">Show instructions</a></p>
+		<div id="imdiv" style="display:none">
+			<p>TNG 13 has improved image tagging. To convert your old HTML image maps to the new method, click here (optional): 
+			<a href="upgrade_convert_image_maps.php" target="_blank">upgrade_convert_image_maps.php</a>.</p>
+			<p>Note: If you are using the Tooltip mod with image maps and want to continue using that method, you may want to skip this step for now.</p>
+			<br/>
+		</div>
+	</li>
+
+	<li>
+		<p><b>Clear your cache.</b> &nbsp; | &nbsp; <a href="#" id="cclink" onclick="return toggleSection('cc');">Show instructions</a></p>
+		<div id="ccdiv" style="display:none">
+			<p>It isn't always necessary, but if things aren't working properly after the upgrade, it could just be that some of the old files or
+				pages are still stuck in your browser cache. Before asking for help, please clear your cache and check your results again. If you
+				need help figuring out how to do this, please see this page on the TNG wiki:
+			<a href="http://tng.lythgoes.net/wiki/index.php?title=Bypassing_Browser_Cache" target="_blank">http://tng.lythgoes.net/wiki/index.php?title=Bypassing_Browser_Cache</a>.</p>
+			<br/>
+		</div>
+	</li>
+
+</ol>
+
+<p><strong>NOTES:</strong></p>
+<ol>
+	<li>If you have your config files in a different folder, please copy the pedconfig.php file included with this upgrade into that folder, overwriting the existing file with that name.</li>
+	<li>Depending on the template you're using, you may have some new links or paragraphs on your home page. Go to the Template Settings to customize these (or blank them out if you want to remove them).</li>
+	<li>If you are using the Mod Manager (or might use it in the future), go to Admin/Mod Manager and run the Recommended Updates script to update you cust_text.php files.</li>
+</ol>
+
+<p>The update should be complete. You did it! If anything doesn't look right, please try the following before asking for support:</p>
+
+<ol>
+	<li>Review all the instructions again. Make sure you didn't miss something!</li>
+	<li>Try clearing your browser cache again, then refresh the page.</li>
+	<li>Repeat any step(s) you think you may have missed. You can't break anything by doing it again.</li>
+</ol>
+
+<p><b>Convenience Links:</b><br/>
+Go to your <a href="index.php">home page</a><br/>
+Go to the <a href="admin.php">Admin menu</a> (address is now "admin.php" instead of "admin/index.php")</p><br/>
+
+</body>
+</html>
